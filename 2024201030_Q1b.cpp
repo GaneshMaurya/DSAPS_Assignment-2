@@ -74,7 +74,7 @@ int main()
             }
         }
 
-        fill(hashMap.begin(), hashMap.end(), 0);
+        fill(hashMap.begin(), hashMap.end(), vector<vector<ll>>());
     }
 
     return 0;

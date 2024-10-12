@@ -152,6 +152,19 @@ void insert(vector<string> &hashMap1, vector<string> &hashMap2, string s, ll tur
         {
             insert(hashMap1, hashMap2, allStrings[i], turn);
         }
+        // insert(hashMap1, hashMap2, s, turn);
+
+        ll hash1 = calcHash(s, prime1);
+        ll hash2 = calcHash(s, prime2);
+        if (hashMap1[hash1] == s || hashMap2[hash2] == s)
+        {
+            cout << "1\n";
+        }
+        else
+        {
+            cout << "0\n";
+            insert(hashMap1, hashMap2, s, turn);
+        }
     }
 }
 
@@ -160,6 +173,11 @@ int main()
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);
     cout.tie(NULL);
+
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
 
     ll t;
     cin >> t;

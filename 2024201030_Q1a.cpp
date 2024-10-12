@@ -3,8 +3,8 @@
 using namespace std;
 
 #define ll long long
-ll maxSize = 200003;
-ll prime = 200011;
+const ll maxSize = 200003;
+const ll prime = 200011;
 
 int main()
 {
@@ -40,9 +40,9 @@ int main()
             }
             else
             {
+                ll h2 = prime - (k % prime);
                 for (ll j = 1; j < maxSize; j++)
                 {
-                    ll h2 = prime - (k % prime);
                     ll index = (h1 + j * h2) % maxSize;
                     if (keys[index] == -1 || keys[index] == k)
                     {
@@ -64,7 +64,7 @@ int main()
             ll h1 = kq % maxSize;
             if (keys[h1] == kq)
             {
-                cout << vals[kq] << "\n";
+                cout << vals[h1] << "\n";
             }
             else
             {
