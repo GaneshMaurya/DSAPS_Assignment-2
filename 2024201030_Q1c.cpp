@@ -61,7 +61,7 @@ ll calcHash(string s, ll prime)
     ll p = 0;
     for (ll j = 0; j < s.size(); j++)
     {
-        ll x = s[j] - 'a';
+        ll x = s[j] - 'a' + 1;
         hash = (hash + x * power(prime, p)) % maxSize;
         p = (p + 1) % 10;
     }
@@ -259,3 +259,175 @@ int main()
 
     return 0;
 }
+
+// #include <iostream>
+// #include <vector>
+// #include <string>
+// #include <cmath>
+// #include <cstdlib>
+
+// using namespace std;
+
+// #define ll long long
+// ll maxSize = 200000;
+// const double LOAD_FACTOR_THRESHOLD = 0.5;
+
+// vector<ll> primeNumbers;
+// vector<ll> isPrime(101, 1);
+
+// void seive(ll n)
+// {
+//     isPrime[0] = isPrime[1] = 0;
+//     for (ll i = 2; i * i <= n; i++)
+//     {
+//         if (isPrime[i])
+//         {
+//             for (ll j = i * i; j <= n; j += i)
+//             {
+//                 isPrime[j] = 0;
+//             }
+//         }
+//     }
+//     for (ll i = 2; i <= n; i++)
+//     {
+//         if (isPrime[i])
+//         {
+//             primeNumbers.push_back(i);
+//         }
+//     }
+// }
+
+// ll calcHash(const string &s, ll prime)
+// {
+//     ll hash = 0;
+//     for (size_t j = 0; j < s.size(); j++)
+//     {
+//         hash = (hash + (s[j] - 'a' + 1) * static_cast<ll>(pow(prime, j))) % maxSize;
+//     }
+//     return hash;
+// }
+
+// void rehash(vector<string> &hashMap1, vector<string> &hashMap2)
+// {
+//     vector<string> allStrings;
+//     for (const auto &str : hashMap1)
+//     {
+//         if (!str.empty())
+//         {
+//             allStrings.push_back(str);
+//         }
+//     }
+//     for (const auto &str : hashMap2)
+//     {
+//         if (!str.empty())
+//         {
+//             allStrings.push_back(str);
+//         }
+//     }
+
+//     maxSize *= 2;
+//     hashMap1.assign(maxSize, "");
+//     hashMap2.assign(maxSize, "");
+
+//     ll prime1 = primeNumbers[rand() % primeNumbers.size()];
+//     ll prime2 = primeNumbers[rand() % primeNumbers.size()];
+
+//     for (const auto &str : allStrings)
+//     {
+//         insert(hashMap1, hashMap2, str, 0, prime1, prime2);
+//     }
+// }
+
+// void insert(vector<string> &hashMap1, vector<string> &hashMap2, string s, ll turn, ll prime1, ll prime2)
+// {
+//     for (int count = 0; count < maxSize; count++)
+//     {
+//         ll hash = (turn == 0) ? calcHash(s, prime1) : calcHash(s, prime2);
+//         vector<string> &currentMap = (turn == 0) ? hashMap1 : hashMap2;
+
+//         if (currentMap[hash].empty() || currentMap[hash] == s)
+//         {
+//             currentMap[hash] = s;
+//             return;
+//         }
+//         else
+//         {
+//             swap(s, currentMap[hash]);
+//         }
+//         turn = 1 - turn; // Toggle turn
+//     }
+//     rehash(hashMap1, hashMap2);
+//     insert(hashMap1, hashMap2, s, 0, prime1, prime2); // Try to insert again
+// }
+
+// int main()
+// {
+//     ios_base::sync_with_stdio(0);
+//     cin.tie(NULL);
+
+//     ll t;
+//     cin >> t;
+
+//     seive(100);
+//     vector<string> hashMap1(maxSize, "");
+//     vector<string> hashMap2(maxSize, "");
+
+//     while (t--)
+//     {
+//         ll n;
+//         cin >> n;
+
+//         ll prime1 = primeNumbers[rand() % primeNumbers.size()];
+//         ll prime2 = primeNumbers[rand() % primeNumbers.size()];
+
+//         while (prime1 == prime2)
+//         {
+//             prime2 = primeNumbers[rand() % primeNumbers.size()];
+//         }
+
+//         for (ll i = 0; i < n; i++)
+//         {
+//             ll type;
+//             string s;
+//             cin >> type >> s;
+
+//             ll hash1 = calcHash(s, prime1);
+//             ll hash2 = calcHash(s, prime2);
+
+//             if (type == 0)
+//             {
+//                 cout << (hashMap1[hash1] == s || hashMap2[hash2] == s ? "1\n" : "0\n");
+//                 if (hashMap1[hash1] != s && hashMap2[hash2] != s)
+//                 {
+//                     insert(hashMap1, hashMap2, s, 0, prime1, prime2);
+//                 }
+//             }
+//             else if (type == 1)
+//             {
+//                 cout << (hashMap1[hash1] == s || hashMap2[hash2] == s ? "1\n" : "0\n");
+//             }
+//             else if (type == 2)
+//             {
+//                 if (hashMap1[hash1] == s)
+//                 {
+//                     hashMap1[hash1] = "";
+//                     cout << "1\n";
+//                 }
+//                 else if (hashMap2[hash2] == s)
+//                 {
+//                     hashMap2[hash2] = "";
+//                     cout << "1\n";
+//                 }
+//                 else
+//                 {
+//                     cout << "0\n";
+//                 }
+//             }
+//         }
+
+//         hashMap1.assign(maxSize, "");
+//         hashMap2.assign(maxSize, "");
+//     }
+
+//     return 0;
+// }

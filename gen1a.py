@@ -67,8 +67,8 @@ def write_test_cases_and_output_to_file(input_file, output_file):
 
 
 # Specify the file names
-input_file = 'input.txt'
-output_file = 'test_output.txt'
+input_file = 'input07.txt'
+output_file = 'output07.txt'
 
 # Generate test cases and write to files
 write_test_cases_and_output_to_file(input_file, output_file)
